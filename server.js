@@ -1,23 +1,8 @@
-const connect = require('connect')
-const url = require('url')
+const connect = require('connect');
+const url = require('url');
 var createError = require('http-errors');
 
 const app = connect();
-
-function calculate(x, y, operator) {
-    switch(operator) {
-        case "add":
-            return x + y
-        case "subtract":
-            return x - y
-        case "multiply":
-            return x * y
-        case "divide":
-            return x / y
-        default:
-            return createError(400)
-    }
-}
 
 app.listen(3000);
 console.log('App running on http://localhost:3000');
@@ -28,7 +13,7 @@ function logger(req, res, next) {
 }
 
 function calculator(req, res, next) {
-    res.writeHead(200, 'text-html');
+    res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write('<h1>Calculator</h1>');
 
     // GET data from the url
@@ -38,14 +23,13 @@ function calculator(req, res, next) {
     let x = Number(queryString.x);
     let y = Number(queryString.y);
     let operator = queryString.method;
-    
-    let result = calculate(x, y, operator)
+
+    let result = calculate(x, y, operator);
 
     // Shows if invalid operations were shown
-    if(isNaN(x) || isNaN(y)) {
-        res.write('<h1>'.concat('Invalid operation.').concat('</h1>'))
-    }
-    else {
+    if (isNaN(x) || isNaN(y) || result instanceof Error) {
+        res.write('<h1>Invalid operation.</h1>');
+    } else {
         res.write('<h3>Subtotal: '.concat(x).concat(' ').concat(operator).concat(' ').concat(y).concat('</h3>'));
         res.write('<h4>Total: '.concat(result).concat('</h4>'));
     }
@@ -55,13 +39,35 @@ function calculator(req, res, next) {
 
 // Shows if an incorrect path was chosen
 function notFound(req, res, next) {
-    res.write('<h1>'.concat('This section doesn\'t exist').concat('</h1>'));
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.write('<h1>This section doesn\'t exist</h1>');
     res.end();
 }
 
+function sum(a, b) {
+    return a + b;
+}
+
+function calculate(x, y, operator) {
+    switch (operator) {
+        case "add":
+            return x + y;
+        case "subtract":
+            return x - y;
+        case "multiply":
+            return x * y;
+        case "divide":
+            return x / y;
+        default:
+            return createError(400);
+    }
+}
+
 // Lab 2 because that's what the example URLs use
-// app.use(logger);
-app.use('/', calculator); 
-app.use('/lab2', calculator); 
-app.use('/lab3', calculator); 
+app.use(logger);
+app.use('/', calculator);
+app.use('/lab2', calculator);
+app.use('/lab3', calculator);
 app.use(notFound);
+
+module.exports = { calculate, sum };
