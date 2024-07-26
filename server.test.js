@@ -34,15 +34,15 @@ test("Add 1 + 2 to be greater than or equal to 3", () => {
 });
 // toEqual
 test("Add 1 + 2 to equal to 3", () => {
-    expect(sum(1, 2)).toEqual(3);
+    expect(calculate(1, 2, "add")).toEqual(3);
 });
 // toBeLessThan
 test("Add 1 + 2 to be less than 5", () => {
-    expect(sum(1, 2)).toBeLessThan(5);
+    expect(calculate(1, 2, "add")).toBeLessThan(5);
   });
 // toBeLessThanOrEqual
 test("Add 1 + 2 to be less than or equal to 5", () => {
-    expect(sum(1, 2)).toBeLessThanOrEqual(5);
+    expect(calculate(1, 2, "add")).toBeLessThanOrEqual(5);
   });
 
 // STRINGS
@@ -63,11 +63,6 @@ test("List is a length of 4", () => {
 });
 
 // OBJECTS
-test("Should equal", () => {
-    const square = new Shape("square");
-
-    expect(square).toEqual(Shape);
-});
 // toMatchObject
 // toHaveProperty
 // toStrictEqual
@@ -82,7 +77,7 @@ test("Should equal", () => {
 // toBe - UNIVERSALLY USED
 
 // toBeInstanceOf
-test("Elements of array are all instances of String", () => {
+test("Variable is an instance of the Shape object", () => {
     const square = new Shape("square");
 
     expect(square).toBeInstanceOf(Shape);
