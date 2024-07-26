@@ -4,8 +4,11 @@ var createError = require('http-errors');
 
 const app = connect();
 
+/* 
+Commented out to allow Jest to exit properly after testing concludes.
+
 app.listen(3000);
-console.log('App running on http://localhost:3000');
+console.log('App running on http://localhost:3000'); */
 
 function logger(req, res, next) {
     console.log("Received request to path: " + req.url);
