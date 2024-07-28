@@ -73,4 +73,4 @@ app.use('/lab2', calculator);
 app.use('/lab3', calculator);
 app.use(notFound);
 
-module.exports = { calculate, sum };
+module.exports = { calculate, sum, notFound, logger };
