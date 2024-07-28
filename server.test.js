@@ -55,8 +55,10 @@ describe('Strings', () => {
   test("The word matches Apple", () => {
       expect("Apple").toMatch("Apple");
   });
+});
 
-  // ARRAYS AND ITERABLES
+// ARRAYS AND ITERABLES
+describe('Arrays', () => {
   const programming = ["JavaScript", "C#", "Java", "Python"];
   // toContain
   test("The list contains JavaScript", () => {
